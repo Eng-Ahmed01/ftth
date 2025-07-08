@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap');
+
+:root {
+  --background-start-rgb: 15, 23, 42;
+  --background-end-rgb: 30, 41, 59;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+    @apply bg-slate-900 text-slate-100;
+    font-family: 'Cairo', sans-serif;
+    direction: rtl;
+    background: linear-gradient(180deg, rgb(var(--background-start-rgb)) 0%, rgb(var(--background-end-rgb)) 100%);
+}
+
+.glass-effect {
+    background: rgba(30, 41, 59, 0.5); /* Semi-transparent background */
+    backdrop-filter: blur(12px); /* Blur effect */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); /* Soft shadow */
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #38bdf8 0%, #a78bfa 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.pulse-glow {
+    animation: pulse-glow 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes pulse-glow {
+    from { 
+        box-shadow: 0 0 5px rgba(56, 189, 248, 0.2), 0 0 10px rgba(167, 139, 250, 0.2);
+    }
+    to { 
+        box-shadow: 0 0 20px rgba(56, 189, 248, 0.5), 0 0 30px rgba(167, 139, 250, 0.4);
+    }
+}
+
+.table-container {
+    max-height: 70vh;
+    overflow: auto;
+}
+
+.table-container::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: rgba(30, 41, 59, 0.5);
+    border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background: rgba(56, 189, 248, 0.5);
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(56, 189, 248, 0.8);
+}
+
+.enhanced-card {
+    background: rgba(30, 41, 59, 0.5);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.enhanced-card:hover {
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* For mobile side-scrolling on tabs */
+.mobile-scroll-tabs::-webkit-scrollbar {
+    display: none;
+}
+.mobile-scroll-tabs {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
