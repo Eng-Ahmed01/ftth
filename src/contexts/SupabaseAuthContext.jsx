@@ -1,12 +1,14 @@
 import React, { createContext, useContext, useEffect, useState, useCallback, useMemo } from 'react';
 
-import { supabase } from '@/lib/customSupabaseClient';
+import { getSupabaseClient } from '@/lib/customSupabaseClient';
 import { useToast } from '@/components/ui/use-toast';
 
 const AuthContext = createContext(undefined);
 
 export const AuthProvider = ({ children }) => {
   const { toast } = useToast();
+
+  const supabase = useMemo(() => getSupabaseClient(), []);
 
   const [user, setUser] = useState(null);
   const [session, setSession] = useState(null);
@@ -19,6 +21,11 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
+    if (!supabase) {
+      setLoading(false);
+      return;
+    }
+
     const getSession = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       handleSession(session);
@@ -36,6 +43,7 @@ export const AuthProvider = ({ children }) => {
   }, [handleSession]);
 
   const signUp = useCallback(async (email, password) => {
+    if (!supabase) return { error: new Error('Supabase not configured') };
     const { error } = await supabase.auth.signUp({
       email,
       password,
@@ -53,6 +61,7 @@ export const AuthProvider = ({ children }) => {
   }, [toast]);
 
   const signIn = useCallback(async (email, password) => {
+    if (!supabase) return { error: new Error('Supabase not configured') };
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -70,6 +79,7 @@ export const AuthProvider = ({ children }) => {
   }, [toast]);
 
   const signOut = useCallback(async () => {
+    if (!supabase) return { error: new Error('Supabase not configured') };
     const { error } = await supabase.auth.signOut();
 
     if (error) {
