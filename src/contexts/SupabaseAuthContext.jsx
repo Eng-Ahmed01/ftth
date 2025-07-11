@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState, useCallback, useMemo } from 'react';
 
-import { getSupabaseClient } from '@/lib/customSupabaseClient';
+import { getSupabase } from '@/lib/supabaseClient';
 import { useToast } from '@/components/ui/use-toast';
 
 const AuthContext = createContext(undefined);
@@ -8,7 +8,13 @@ const AuthContext = createContext(undefined);
 export const AuthProvider = ({ children }) => {
   const { toast } = useToast();
 
-  const supabase = useMemo(() => getSupabaseClient(), []);
+  const [supabase, setSupabase] = useState(() => getSupabase());
+
+  useEffect(() => {
+    const refresh = () => setSupabase(getSupabase());
+    window.addEventListener('supabase:init', refresh);
+    return () => window.removeEventListener('supabase:init', refresh);
+  }, []);
 
   const [user, setUser] = useState(null);
   const [session, setSession] = useState(null);

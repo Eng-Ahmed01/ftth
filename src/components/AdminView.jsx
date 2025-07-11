@@ -11,7 +11,7 @@ import ReportsTable from '@/components/reports/ReportsTable';
 import DashTasksTable from '@/components/DashTasksTable';
 import TaskLimitManager from '@/components/tasks/TaskLimitManager';
 import GoogleSheetsManager from '@/components/GoogleSheetsManager';
-import SupabaseSetup from '@/components/config/SupabaseSetup';
+import SupabaseSettings from '@/components/SupabaseSettings';
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -158,7 +158,7 @@ const AdminView = ({ tasks, users, onUpdateUsers, reports, onUpdateTasks, onUpda
         />
       </TabsContent>
       <TabsContent value="supabase" className="mt-6">
-        <SupabaseSetup />
+        <SupabaseSettings />
       </TabsContent>
     </Tabs>
   );
