@@ -11,6 +11,7 @@ import ReportsTable from '@/components/reports/ReportsTable';
 import DashTasksTable from '@/components/DashTasksTable';
 import TaskLimitManager from '@/components/tasks/TaskLimitManager';
 import GoogleSheetsManager from '@/components/GoogleSheetsManager';
+import SupabaseSetup from '@/components/config/SupabaseSetup';
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -60,6 +61,7 @@ const AdminView = ({ tasks, users, onUpdateUsers, reports, onUpdateTasks, onUpda
         <TabsTrigger value="inventory" className="text-xs shrink-0"><Package className="w-3 h-3 ml-1" />المخزون</TabsTrigger>
         <TabsTrigger value="financial" className="text-xs shrink-0">💰 الذمة المالية</TabsTrigger>
         <TabsTrigger value="sheets" className="text-xs shrink-0">📊 Google Sheets</TabsTrigger>
+        <TabsTrigger value="supabase" className="text-xs shrink-0">🔌 Supabase</TabsTrigger>
       </TabsList>
       
       <TabsContent value="overview" className="mt-6">
@@ -148,12 +150,15 @@ const AdminView = ({ tasks, users, onUpdateUsers, reports, onUpdateTasks, onUpda
       </TabsContent>
       
       <TabsContent value="sheets" className="mt-6">
-        <GoogleSheetsManager 
-          tasks={tasks} 
-          reports={reports} 
+        <GoogleSheetsManager
+          tasks={tasks}
+          reports={reports}
           onUpdateTasks={onUpdateTasks}
           onUpdateReports={onUpdateReports}
         />
+      </TabsContent>
+      <TabsContent value="supabase" className="mt-6">
+        <SupabaseSetup />
       </TabsContent>
     </Tabs>
   );
