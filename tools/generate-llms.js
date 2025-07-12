@@ -149,9 +149,10 @@ function main() {
   const appJsxPath = path.join(process.cwd(), 'src', 'App.jsx');
 
   let pages = [];
-  
+
   if (!fs.existsSync(pagesDir)) {
-    pages.push(processPageFile(appJsxPath, []));
+    const page = processPageFile(appJsxPath, []);
+    if (page) pages.push(page);
   } else {
     const routes = extractRoutes(appJsxPath);
     const reactFiles = findReactFiles(pagesDir);
