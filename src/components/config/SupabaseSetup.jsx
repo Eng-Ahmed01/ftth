@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import { getSupabaseClient } from '@/lib/customSupabaseClient';
+import { getSupabaseClient, setSupabaseConfig } from '@/lib/customSupabaseClient';
 
 const AVAILABLE_TABLES = [
   {
@@ -87,8 +87,7 @@ export default function SupabaseSetup() {
   }, []);
 
   const handleSave = () => {
-    localStorage.setItem('supabaseUrl', projectUrl.trim());
-    localStorage.setItem('supabaseAnonKey', apiKey.trim());
+    setSupabaseConfig(projectUrl.trim(), apiKey.trim());
   };
 
   const handleGenerate = () => {
