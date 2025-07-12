@@ -132,27 +132,27 @@ export default function SupabaseSetup() {
   return (
     <Card className="glass-effect border-sky-500/30 max-w-xl mx-auto">
       <CardHeader>
-        <CardTitle>Supabase Configuration</CardTitle>
+        <CardTitle>ربط بحساب Supabase</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <Tabs defaultValue="config">
           <TabsList className="mb-4">
-            <TabsTrigger value="config">الإعدادات</TabsTrigger>
-            <TabsTrigger value="fields">الحقول</TabsTrigger>
+            <TabsTrigger value="config">بيانات الربط</TabsTrigger>
+            <TabsTrigger value="fields">المدخلات</TabsTrigger>
           </TabsList>
 
           <TabsContent value="config" className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="projectUrl">Project URL</Label>
+              <Label htmlFor="projectUrl">رابط المشروع</Label>
               <Input id="projectUrl" value={projectUrl} onChange={e => setProjectUrl(e.target.value)} placeholder="https://xyz.supabase.co" className="glass-effect" />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="apiKey">API Key</Label>
+              <Label htmlFor="apiKey">مفتاح API</Label>
               <Input id="apiKey" value={apiKey} onChange={e => setApiKey(e.target.value)} placeholder="public anon key" className="glass-effect" />
             </div>
-            <Button onClick={handleSave}>Save</Button>
+            <Button onClick={handleSave}>حفظ</Button>
             <div className="pt-4">
-              <p className="font-semibold mb-2">Select tables to create:</p>
+              <p className="font-semibold mb-2">اختر الجداول المراد إنشاؤها:</p>
               {AVAILABLE_TABLES.map(t => (
                 <label key={t.key} className="flex items-center gap-2">
                   <input type="checkbox" checked={!!selected[t.key]} onChange={() => toggle(t.key)} />
@@ -180,7 +180,7 @@ export default function SupabaseSetup() {
 
         </Tabs>
 
-        <Button className="mt-2" onClick={handleGenerate}>Generate SQL</Button>
+        <Button className="mt-2" onClick={handleGenerate}>توليد كود SQL</Button>
         {sql && (
           <textarea readOnly className="w-full h-40 p-2 mt-4 bg-gray-800 text-white rounded" value={sql} />
         )}
