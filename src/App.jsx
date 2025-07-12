@@ -18,18 +18,19 @@ function App() {
       let savedUsers = JSON.parse(localStorage.getItem('users')) || [];
       if (savedUsers.length === 0) {
         const initialUsers = [
-          { username: 'admin', password: 'admin', role: 'admin' },
-          { username: 'غيث صلاح مهدي', password: '1', role: 'creator' }
+          { username: 'admin', password: 'admin', role: 'admin', approved: true },
+          { username: 'غيث صلاح مهدي', password: '1', role: 'creator', approved: true }
         ];
         savedUsers = initialUsers;
         localStorage.setItem('users', JSON.stringify(initialUsers));
       } else {
         savedUsers = savedUsers.map(u => ({
           ...u,
-          role: u.role || (u.username === 'admin' ? 'admin' : 'technician')
+          role: u.role || (u.username === 'admin' ? 'admin' : 'technician'),
+          approved: typeof u.approved === 'undefined' ? true : u.approved
         }));
         if (!savedUsers.some(u => u.username === 'غيث صلاح مهدي')) {
-            savedUsers.push({ username: 'غيث صلاح مهدي', password: '1', role: 'creator' });
+            savedUsers.push({ username: 'غيث صلاح مهدي', password: '1', role: 'creator', approved: true });
         }
         localStorage.setItem('users', JSON.stringify(savedUsers));
       }

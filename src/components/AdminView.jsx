@@ -12,6 +12,7 @@ import DashTasksTable from '@/components/DashTasksTable';
 import TaskLimitManager from '@/components/tasks/TaskLimitManager';
 import GoogleSheetsManager from '@/components/GoogleSheetsManager';
 import SupabaseSetup from '@/components/config/SupabaseSetup';
+import UserApproval from '@/components/UserApproval';
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -138,7 +139,18 @@ const AdminView = ({ tasks, users, onUpdateUsers, reports, onUpdateTasks, onUpda
       </TabsContent>
       
       <TabsContent value="users" className="mt-6">
-        <UserManager users={users} onUpdateUsers={onUpdateUsers} />
+        <Tabs defaultValue="manage" className="w-full">
+          <TabsList className="grid w-full grid-cols-2 glass-effect">
+            <TabsTrigger value="manage">إدارة المستخدمين</TabsTrigger>
+            <TabsTrigger value="approval">الموافقة</TabsTrigger>
+          </TabsList>
+          <TabsContent value="manage" className="mt-6">
+            <UserManager users={users} onUpdateUsers={onUpdateUsers} />
+          </TabsContent>
+          <TabsContent value="approval" className="mt-6">
+            <UserApproval users={users} onUpdateUsers={onUpdateUsers} />
+          </TabsContent>
+        </Tabs>
       </TabsContent>
       
       <TabsContent value="inventory" className="mt-6">
