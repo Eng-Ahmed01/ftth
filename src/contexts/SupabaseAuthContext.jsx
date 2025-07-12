@@ -8,7 +8,13 @@ const AuthContext = createContext(undefined);
 export const AuthProvider = ({ children }) => {
   const { toast } = useToast();
 
-  const supabase = useMemo(() => getSupabaseClient(), []);
+  const [supabase, setSupabase] = useState(getSupabaseClient());
+
+  useEffect(() => {
+    const handler = () => setSupabase(getSupabaseClient());
+    window.addEventListener('supabase-config-changed', handler);
+    return () => window.removeEventListener('supabase-config-changed', handler);
+  }, []);
 
   const [user, setUser] = useState(null);
   const [session, setSession] = useState(null);
@@ -40,7 +46,7 @@ export const AuthProvider = ({ children }) => {
     );
 
     return () => subscription.unsubscribe();
-  }, [handleSession]);
+  }, [supabase, handleSession]);
 
   const signUp = useCallback(async (email, password) => {
     if (!supabase) return { error: new Error('Supabase not configured') };
@@ -58,7 +64,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     return { error };
-  }, [toast]);
+  }, [toast, supabase]);
 
   const signIn = useCallback(async (email, password) => {
     if (!supabase) return { error: new Error('Supabase not configured') };
@@ -76,7 +82,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     return { error };
-  }, [toast]);
+  }, [toast, supabase]);
 
   const signOut = useCallback(async () => {
     if (!supabase) return { error: new Error('Supabase not configured') };
@@ -91,7 +97,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     return { error };
-  }, [toast]);
+  }, [toast, supabase]);
 
   const value = useMemo(() => ({
     user,
