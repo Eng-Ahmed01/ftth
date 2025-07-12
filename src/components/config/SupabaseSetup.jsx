@@ -54,8 +54,12 @@ export default function SupabaseSetup() {
   const [newField, setNewField] = useState('');
 
   useEffect(() => {
-    const url = localStorage.getItem('supabaseUrl') || '';
-    const key = localStorage.getItem('supabaseAnonKey') || '';
+    const url =
+      localStorage.getItem('supabaseUrl') ||
+      import.meta.env.VITE_SUPABASE_URL || '';
+    const key =
+      localStorage.getItem('supabaseAnonKey') ||
+      import.meta.env.VITE_SUPABASE_ANON_KEY || '';
     setProjectUrl(url);
     setApiKey(key);
 
@@ -205,7 +209,7 @@ export default function SupabaseSetup() {
         {sql && (
           <>
             <textarea readOnly className="w-full h-40 p-2 mt-4 bg-gray-800 text-white rounded" value={sql} />
-            <Button variant="outline" className="mt-2" onClick={handleCopy}">
+            <Button variant="outline" className="mt-2" onClick={handleCopy}>
               {copied ? 'تم النسخ' : 'نسخ الكود'}
             </Button>
           </>
