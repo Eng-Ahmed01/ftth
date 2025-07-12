@@ -27,8 +27,12 @@ const AuthPage = ({ onLogin, onUpdateUsers }) => {
   const handleLogin = () => {
     const users = JSON.parse(localStorage.getItem('users')) || [];
     const foundUser = users.find(u => u.username === username && u.password === password);
-
+    
     if (foundUser) {
+      if (foundUser.approved === false) {
+        toast({ title: "قيد المراجعة", description: "حسابك بانتظار موافقة المشرف.", variant: "destructive" });
+        return;
+      }
       toast({ title: `مرحباً بعودتك، ${foundUser.username}!` });
       onLogin(foundUser);
     } else {
@@ -47,10 +51,10 @@ const AuthPage = ({ onLogin, onUpdateUsers }) => {
     if (userExists) {
       toast({ title: "خطأ", description: "اسم المستخدم هذا موجود بالفعل.", variant: "destructive" });
     } else {
-      const newUser = { username, password, role: 'technician' }; // New users are technicians
+      const newUser = { username, password, role: 'technician', approved: false };
       const updatedUsers = [...users, newUser];
       onUpdateUsers(updatedUsers);
-      toast({ title: "نجاح!", description: "تم إنشاء حسابك بنجاح. يمكنك الآن تسجيل الدخول." });
+      toast({ title: "تم إنشاء الحساب", description: "سيتم تفعيل حسابك بعد موافقة المشرف." });
       setIsRegister(false);
       setUsername('');
       setPassword('');

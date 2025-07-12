@@ -43,7 +43,10 @@ const UserManager = ({ users, onUpdateUsers }) => {
     setEditingUser(null);
   };
 
-  const editableUsers = users.filter(u => u.role === 'admin' || u.role === 'technician' || u.role === 'creator');
+  const editableUsers = users.filter(u =>
+    (u.role === 'admin' || u.role === 'technician' || u.role === 'creator') &&
+    u.approved !== false
+  );
 
   return (
     <Card className="glass-effect border-sky-500/20">
