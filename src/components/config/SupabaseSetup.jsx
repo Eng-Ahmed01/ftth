@@ -54,8 +54,12 @@ export default function SupabaseSetup() {
   const [newField, setNewField] = useState('');
 
   useEffect(() => {
-    const url = localStorage.getItem('supabaseUrl') || '';
-    const key = localStorage.getItem('supabaseAnonKey') || '';
+    const url =
+      localStorage.getItem('supabaseUrl') ||
+      import.meta.env.VITE_SUPABASE_URL || '';
+    const key =
+      localStorage.getItem('supabaseAnonKey') ||
+      import.meta.env.VITE_SUPABASE_ANON_KEY || '';
     setProjectUrl(url);
     setApiKey(key);
 

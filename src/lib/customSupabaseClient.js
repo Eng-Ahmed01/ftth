@@ -4,8 +4,12 @@ let supabase = null;
 
 export function getSupabaseClient() {
   if (supabase) return supabase;
-  const url = localStorage.getItem('supabaseUrl');
-  const key = localStorage.getItem('supabaseAnonKey');
+  const url =
+    localStorage.getItem('supabaseUrl') ||
+    import.meta.env.VITE_SUPABASE_URL;
+  const key =
+    localStorage.getItem('supabaseAnonKey') ||
+    import.meta.env.VITE_SUPABASE_ANON_KEY;
   if (!url || !key) return null;
   supabase = createClient(url, key);
   return supabase;
