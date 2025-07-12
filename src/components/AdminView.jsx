@@ -62,7 +62,7 @@ const AdminView = ({ tasks, users, onUpdateUsers, reports, onUpdateTasks, onUpda
         <TabsTrigger value="inventory" className="text-xs shrink-0"><Package className="w-3 h-3 ml-1" />المخزون</TabsTrigger>
         <TabsTrigger value="financial" className="text-xs shrink-0">💰 الذمة المالية</TabsTrigger>
         <TabsTrigger value="sheets" className="text-xs shrink-0">📊 Google Sheets</TabsTrigger>
-        <TabsTrigger value="supabase" className="text-xs shrink-0">🔌 Supabase</TabsTrigger>
+        <TabsTrigger value="supabase" className="text-xs shrink-0">🔌 ربط بحساب Supabase</TabsTrigger>
       </TabsList>
       
       <TabsContent value="overview" className="mt-6">
