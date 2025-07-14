@@ -87,13 +87,14 @@ const Dashboard = ({ user, onLogout, users, onUpdateUsers, view, setView }) => {
           </TabsList>
           <TabsContent value="overview" className="mt-4">
             <Suspense fallback={<LoadingSpinner />}>
-              <AdminView 
-                tasks={tasks} 
-                users={users} 
-                onUpdateUsers={onUpdateUsers} 
-                reports={reports} 
+              <AdminView
+                tasks={tasks}
+                users={users}
+                onUpdateUsers={onUpdateUsers}
+                reports={reports}
                 onUpdateTasks={updateTasks}
                 onUpdateReports={updateReports}
+                currentUser={user}
               />
             </Suspense>
           </TabsContent>
