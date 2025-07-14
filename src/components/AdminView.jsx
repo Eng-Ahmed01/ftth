@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { CheckCircle, Clock, XCircle, Users, BarChart2, Package, TrendingUp, Shield, Settings } from 'lucide-react';
 import UserManager from '@/components/UserManager';
+import AccountApprovals from '@/components/AccountApprovals';
 import PermissionManager from '@/components/PermissionManager';
 import EnhancedFinancialManager from '@/components/EnhancedFinancialManager';
 import MaterialInventoryManager from '@/components/MaterialInventoryManager';
@@ -26,7 +27,7 @@ const TaskStatusCard = ({ title, count, icon, color }) => (
   </Card>
 );
 
-const AdminView = ({ tasks, users, onUpdateUsers, reports, onUpdateTasks, onUpdateReports }) => {
+const AdminView = ({ tasks, users, onUpdateUsers, reports, onUpdateTasks, onUpdateReports, currentUser }) => {
   const technicians = users.filter(u => u.role === 'technician');
 
   const taskStats = {
@@ -57,6 +58,9 @@ const AdminView = ({ tasks, users, onUpdateUsers, reports, onUpdateTasks, onUpda
         <TabsTrigger value="dash" className="text-xs shrink-0">📊 مهام الداش</TabsTrigger>
         <TabsTrigger value="subscribers" className="text-xs shrink-0"><TrendingUp className="w-3 h-3 ml-1" />المشتركون</TabsTrigger>
         <TabsTrigger value="users" className="text-xs shrink-0"><Users className="w-3 h-3 ml-1" />المستخدمون</TabsTrigger>
+        {currentUser?.role === 'supervisor' && (
+          <TabsTrigger value="approvals" className="text-xs shrink-0">الموافقات</TabsTrigger>
+        )}
         <TabsTrigger value="inventory" className="text-xs shrink-0"><Package className="w-3 h-3 ml-1" />المخزون</TabsTrigger>
         <TabsTrigger value="financial" className="text-xs shrink-0">💰 الذمة المالية</TabsTrigger>
         <TabsTrigger value="sheets" className="text-xs shrink-0">📊 Google Sheets</TabsTrigger>
@@ -138,7 +142,12 @@ const AdminView = ({ tasks, users, onUpdateUsers, reports, onUpdateTasks, onUpda
       <TabsContent value="users" className="mt-6">
         <UserManager users={users} onUpdateUsers={onUpdateUsers} />
       </TabsContent>
-      
+      {currentUser?.role === 'supervisor' && (
+        <TabsContent value="approvals" className="mt-6">
+          <AccountApprovals />
+        </TabsContent>
+      )}
+
       <TabsContent value="inventory" className="mt-6">
         <MaterialInventoryManager users={users} reports={reports} onUpdateUsers={onUpdateUsers} />
       </TabsContent>
