@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
+import { Check, X } from 'lucide-react';
 import { fetchPendingUsers, approveUser, rejectUser } from '@/services/userService';
 
 const AccountApprovals = () => {
@@ -25,7 +26,7 @@ const AccountApprovals = () => {
       setLoading(false);
     };
     load();
-  }, [toast]);
+  }, []);
 
   const handleApprove = async (id) => {
     const { error } = await approveUser(id);
@@ -77,14 +78,14 @@ const AccountApprovals = () => {
                   </td>
                   <td className="p-2 flex gap-2 justify-center">
                     <Button size="sm" onClick={() => handleApprove(u.id)}>
-                      موافقة
+                      <Check className="w-4 h-4 ml-1" /> موافقة
                     </Button>
                     <Button
                       size="sm"
                       variant="destructive"
                       onClick={() => handleReject(u.id)}
                     >
-                      رفض
+                      <X className="w-4 h-4 ml-1" /> رفض
                     </Button>
                   </td>
                 </tr>

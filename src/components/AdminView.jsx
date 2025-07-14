@@ -51,7 +51,7 @@ const AdminView = ({ tasks, users, onUpdateUsers, reports, onUpdateTasks, onUpda
 
   return (
     <Tabs defaultValue="overview" className="w-full">
-      <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-9 glass-effect text-xs overflow-x-auto mobile-scroll-tabs">
+      <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-10 glass-effect text-xs overflow-x-auto mobile-scroll-tabs">
         <TabsTrigger value="overview" className="text-xs shrink-0"><BarChart2 className="w-3 h-3 ml-1" />نظرة عامة</TabsTrigger>
         <TabsTrigger value="task-limits" className="text-xs shrink-0"><Settings className="w-3 h-3 ml-1" />حدود المهام</TabsTrigger>
         <TabsTrigger value="permissions" className="text-xs shrink-0"><Shield className="w-3 h-3 ml-1" />الصلاحيات</TabsTrigger>
